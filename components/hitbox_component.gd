@@ -1,12 +1,11 @@
 class_name HitboxComponent
 extends Area2D
+## Componente encargado de definir una zona ofensiva (ataques, proyectiles, trampas).
 
-## Cantidad de daño que inflige esta hitbox
 @export var damage: int = 1
+@export var knockback_force: float = 0.0
 
 func _ready() -> void:
-	area_entered.connect(_on_area_entered)
-
-func _on_area_entered(area: Area2D) -> void:
-	if area is HurtboxComponent:
-		area.receive_damage(damage)
+	# Asegura que la Hitbox sea detectable por la Hurtbox
+	monitoring = false  # No necesita detectar otras áreas por sí misma
+	monitorable = true  # Permite ser detectada por un HurtboxComponent
